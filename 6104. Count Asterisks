@@ -1,39 +1,7 @@
 class Solution:
     def countAsterisks(self, s: str) -> int:
-        pair_index = []
-        prev = 0
-        idx1, idx2 = 0, 0
-        for i in range(len(s)):
-            if prev == 0 and s[i] == '|':
-                idx1 = i
-                prev = 1
-            elif prev == 1 and s[i] == '|':
-                idx2 = i
-                prev = 0
-                pair_index.append([idx1, idx2])
-                
-        def count(word):
-            res = 0
-            for c in word:
-                if c == '*':
-                    res += 1
-            return res
-        
-        if len(pair_index) == 0:
-            return count(s)
-        
-        res = count(s[:pair_index[0][0]]) + count(s[pair_index[-1][1]:])
-        
-        if len(pair_index) == 1:
-            return res
-        
-        for i in range(len(pair_index) - 1):
-            word = s[pair_index[i][1]:pair_index[i + 1][0]]
-            res += count(word)
-        return res
-                
-                
-            
-            
-            
-        
+        p=s.split('|')
+        s=0
+        for w in range(0,len(p),2):
+            s+=p[w].count('*')
+        return s
