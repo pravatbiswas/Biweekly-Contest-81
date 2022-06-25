@@ -1,0 +1,18 @@
+class Solution:
+    def distinctSequences(self, n: int) -> int:
+        @lru_cache(None)
+        def helper(i,val,prev):
+            if i==0:
+                return 1
+            else :
+                ans=0
+                for v in range(1,7):
+                    if v!=prev and v!=val and gcd(v,val)==1:
+                        ans+=helper(i-1,v,val)
+                        ans%=10**9+7
+                return ans
+        ans=0
+        for v in range(1,7):
+            ans+=helper(n-1,v,-1)
+            ans%=10**9+7
+        return ans
